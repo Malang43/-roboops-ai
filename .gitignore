@@ -1,0 +1,39 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/*.pyc
+backend/.pytest_cache/
+backend/.mypy_cache/
+
+# React and Node
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ROS2
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Storage
+storage/images/*
+storage/reports/*
+storage/logs/*
+
+# Keep empty storage directories
+!storage/images/.gitkeep
+!storage/reports/.gitkeep
+!storage/logs/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
