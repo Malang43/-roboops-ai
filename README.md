@@ -189,11 +189,3 @@ AI planning
 → PostgreSQL storage
 → PDF evidence report
 → React dashboard
-
-## Project Demo Video
-
-Watch the complete RoboOps AI demonstration:
-
-[▶ Watch the RoboOps AI Demo Video](docs/videos/roboops-ai-demo.mp4)
-
-The video demonstrates natural-language mission planning, human approval, ROS2 and Nav2 execution, live telemetry, computer vision, n8n automation, and automatic PDF mission reporting.
