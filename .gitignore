@@ -1,39 +1,63 @@
-# Environment variables and secrets
+# Environment files and secrets
 .env
 .env.*
 !.env.example
+**/.env
+**/.env.*
+!**/.env.example
 
 # Python
-backend/.venv/
-backend/__pycache__/
-backend/**/*.pyc
-backend/.pytest_cache/
-backend/.mypy_cache/
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
-# React and Node
+# Python virtual environments
+.venv/
+venv/
+backend/.venv/
+
+# React / Node
+node_modules/
 frontend/node_modules/
 frontend/dist/
-frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# ROS2
+# ROS2 generated directories
 ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
 
-# Storage
-storage/images/*
-storage/reports/*
-storage/logs/*
+# Runtime evidence and generated reports
+data/captures/*
+!data/captures/.gitkeep
+data/reports/*
+!data/reports/.gitkeep
 
-# Keep empty storage directories
-!storage/images/.gitkeep
-!storage/reports/.gitkeep
-!storage/logs/.gitkeep
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.backup*
+*~
+.DS_Store
+Thumbs.db
 
 # IDE
 .vscode/
 .idea/
 
-# Operating system files
-.DS_Store
-Thumbs.db
+# Docker local data
+infrastructure/postgres_data/
+infrastructure/redis_data/
+infrastructure/n8n_data/
+
+# ROS logs
+.ros/

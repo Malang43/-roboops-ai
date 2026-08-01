@@ -1,0 +1,19 @@
+[Unit]
+Description=RoboOps React Production Dashboard
+After=roboops-backend.service
+PartOf=roboops.target
+
+[Service]
+Type=simple
+User=titans
+Group=titans
+WorkingDirectory=/srv/roboops-ai/frontend
+Environment=HOME=/home/titans
+ExecStart=/usr/bin/python3 -m http.server 5173 --bind 127.0.0.1 --directory /srv/roboops-ai/frontend/dist
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

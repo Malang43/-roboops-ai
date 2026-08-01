@@ -1,0 +1,354 @@
+.live-vision-panel {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 22px;
+  box-sizing: border-box;
+  border: 1px solid rgba(99, 219, 255, 0.17);
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(43, 210, 179, 0.1),
+      transparent 31%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(11, 20, 37, 0.98),
+      rgba(7, 14, 27, 0.98)
+    );
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, 0.25),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.vision-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.vision-kicker,
+.camera-toolbar span,
+.detections-heading span {
+  display: block;
+  color: #44d7bf;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.vision-header h2,
+.detections-heading h3 {
+  margin: 5px 0 4px;
+  color: #f4f7ff;
+}
+
+.vision-header h2 {
+  font-size: 1.25rem;
+}
+
+.vision-header p {
+  margin: 0;
+  color: #8997b4;
+  font-size: 0.8rem;
+}
+
+.vision-statuses {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vision-badge {
+  padding: 7px 10px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.vision-badge.online {
+  color: #42e6ad;
+  border-color: rgba(66, 230, 173, 0.3);
+  background: rgba(66, 230, 173, 0.08);
+}
+
+.vision-badge.offline {
+  color: #ff7187;
+  border-color: rgba(255, 113, 135, 0.3);
+  background: rgba(255, 113, 135, 0.08);
+}
+
+.vision-badge.neutral {
+  color: #6ddaff;
+  border-color: rgba(109, 218, 255, 0.28);
+  background: rgba(109, 218, 255, 0.07);
+}
+
+.vision-content {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(280px, 0.7fr);
+  gap: 14px;
+}
+
+.camera-card,
+.detections-card {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid rgba(135, 153, 190, 0.13);
+  border-radius: 15px;
+  background: rgba(8, 16, 31, 0.78);
+}
+
+.camera-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.camera-toolbar strong {
+  display: block;
+  margin-top: 4px;
+  color: #dce5f8;
+  font-size: 0.73rem;
+}
+
+.camera-toolbar button {
+  border: 1px solid rgba(99, 222, 193, 0.3);
+  border-radius: 9px;
+  background: rgba(55, 211, 177, 0.1);
+  color: #65e4c4;
+  padding: 9px 12px;
+  font-size: 0.69rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.camera-toolbar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.camera-frame {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  border: 1px solid rgba(116, 139, 179, 0.16);
+  border-radius: 12px;
+  background: #060d1a;
+}
+
+.camera-frame img {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+  max-height: 520px;
+  object-fit: contain;
+  background: #060d1a;
+}
+
+.camera-overlay {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.camera-overlay span {
+  border: 1px solid rgba(163, 180, 214, 0.16);
+  border-radius: 7px;
+  background: rgba(4, 10, 21, 0.78);
+  color: #aab7ce;
+  padding: 5px 8px;
+  font-size: 0.62rem;
+  backdrop-filter: blur(8px);
+}
+
+.capture-result {
+  overflow: hidden;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: rgba(60, 216, 175, 0.08);
+  color: #6ce3c5;
+  padding: 9px;
+  font-size: 0.67rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detections-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.detections-heading h3 {
+  font-size: 0.95rem;
+}
+
+.detections-heading > strong {
+  min-width: 34px;
+  border-radius: 9px;
+  background: rgba(75, 213, 184, 0.1);
+  color: #54dfbe;
+  padding: 8px;
+  text-align: center;
+}
+
+.detection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.detection-item {
+  display: grid;
+  grid-template-columns:
+    34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 9px;
+  border: 1px solid rgba(133, 151, 187, 0.11);
+  border-radius: 10px;
+  background: rgba(15, 26, 47, 0.62);
+}
+
+.detection-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(87, 211, 179, 0.1);
+  color: #62dfc0;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.detection-copy {
+  min-width: 0;
+}
+
+.detection-copy strong,
+.detection-copy span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detection-copy strong {
+  color: #e6ebf8;
+  font-size: 0.73rem;
+  text-transform: capitalize;
+}
+
+.detection-copy span {
+  margin-top: 3px;
+  color: #73819d;
+  font-size: 0.62rem;
+}
+
+.detection-score {
+  color: #62dfc0;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.no-detections {
+  padding: 28px 12px;
+  border: 1px dashed rgba(133, 151, 187, 0.16);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.no-detections span,
+.no-detections small {
+  display: block;
+}
+
+.no-detections span {
+  color: #b6c0d5;
+  font-size: 0.73rem;
+}
+
+.no-detections small {
+  margin-top: 5px;
+  color: #6e7c98;
+  font-size: 0.63rem;
+  line-height: 1.5;
+}
+
+.vision-details {
+  display: grid;
+  gap: 8px;
+  margin: 13px 0 0;
+}
+
+.vision-details div {
+  min-width: 0;
+  padding: 9px;
+  border-radius: 9px;
+  background: rgba(15, 25, 45, 0.52);
+}
+
+.vision-details dt {
+  color: #667591;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+
+.vision-details dd {
+  overflow: hidden;
+  margin: 4px 0 0;
+  color: #cbd4e7;
+  font-size: 0.67rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .vision-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .live-vision-panel {
+    padding: 14px;
+  }
+
+  .vision-header,
+  .camera-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .vision-statuses {
+    justify-content: flex-start;
+  }
+
+  .camera-frame,
+  .camera-frame img {
+    min-height: 220px;
+  }
+
+  .camera-overlay {
+    flex-wrap: wrap;
+  }
+}

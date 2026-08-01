@@ -1,0 +1,23 @@
+[Unit]
+Description=RoboOps Nav2 Mission Worker
+Requires=roboops-simulation.service
+After=roboops-simulation.service
+PartOf=roboops.target
+
+[Service]
+Type=simple
+User=titans
+Group=titans
+WorkingDirectory=/srv/roboops-ai/ros2_ws
+Environment=HOME=/home/titans
+Environment=PYTHONUNBUFFERED=1
+Environment=ROS_DOMAIN_ID=0
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /srv/roboops-ai/ros2_ws/install/setup.bash && exec ros2 run roboops_mission_worker mission_worker'
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+KillMode=mixed
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

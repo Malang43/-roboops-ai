@@ -1,0 +1,7 @@
+fastapi[standard]
+pydantic-settings
+python-dotenv
+httpx
+SQLAlchemy>=2.0,<2.1
+psycopg[binary]>=3.2,<4
+alembic>=1.16,<2

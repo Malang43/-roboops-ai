@@ -1,0 +1,15 @@
+[Unit]
+Description=RoboOps AI Complete Robotics Platform
+Requires=roboops-infrastructure.service
+Wants=roboops-simulation.service
+Wants=roboops-mission-worker.service
+Wants=roboops-backend.service
+Wants=roboops-telemetry.service
+Wants=roboops-vision.service
+Wants=roboops-automation.service
+Wants=roboops-reports.service
+Wants=roboops-frontend.service
+After=network-online.target docker.service roboops-infrastructure.service
+
+[Install]
+WantedBy=multi-user.target

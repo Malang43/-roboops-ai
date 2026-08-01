@@ -1,0 +1,18 @@
+[Unit]
+Description=RoboOps Docker Infrastructure
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+PartOf=roboops.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/roboops-ai/infrastructure
+ExecStart=/usr/bin/docker compose -f /srv/roboops-ai/infrastructure/compose.yaml -f /srv/roboops-ai/infrastructure/compose.override.yaml up -d
+ExecStop=/usr/bin/docker compose -f /srv/roboops-ai/infrastructure/compose.yaml -f /srv/roboops-ai/infrastructure/compose.override.yaml stop
+TimeoutStartSec=0
+TimeoutStopSec=90
+
+[Install]
+WantedBy=multi-user.target

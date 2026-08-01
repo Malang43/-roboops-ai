@@ -1,0 +1,444 @@
+.live-telemetry-panel {
+  grid-column: 1 / -1;
+  width: 100%;
+  border: 1px solid rgba(139, 128, 255, 0.18);
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(113, 78, 255, 0.12),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(13, 20, 38, 0.98),
+      rgba(8, 14, 27, 0.98)
+    );
+  padding: 22px;
+  box-sizing: border-box;
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, 0.26),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.telemetry-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.telemetry-kicker,
+.telemetry-card-heading span {
+  display: block;
+  color: #8778ff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.telemetry-header h2,
+.telemetry-card-heading h3 {
+  margin: 5px 0 4px;
+  color: #f5f7ff;
+}
+
+.telemetry-header h2 {
+  font-size: 1.25rem;
+}
+
+.telemetry-header p {
+  margin: 0;
+  color: #8e9ab5;
+  font-size: 0.8rem;
+}
+
+.telemetry-status-group {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.telemetry-badge {
+  padding: 7px 10px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.telemetry-badge.online {
+  color: #42e6ad;
+  border-color: rgba(66, 230, 173, 0.3);
+  background: rgba(66, 230, 173, 0.08);
+}
+
+.telemetry-badge.running {
+  color: #66d5ff;
+  border-color: rgba(102, 213, 255, 0.3);
+  background: rgba(102, 213, 255, 0.08);
+}
+
+.telemetry-badge.offline {
+  color: #ff7187;
+  border-color: rgba(255, 113, 135, 0.3);
+  background: rgba(255, 113, 135, 0.08);
+}
+
+.telemetry-stat-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.telemetry-stat {
+  min-width: 0;
+  border: 1px solid rgba(141, 155, 190, 0.13);
+  border-radius: 13px;
+  background: rgba(14, 23, 42, 0.65);
+  padding: 13px;
+}
+
+.telemetry-stat span,
+.telemetry-stat small {
+  display: block;
+  overflow: hidden;
+  color: #71809e;
+  font-size: 0.67rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.telemetry-stat strong {
+  display: block;
+  overflow: hidden;
+  margin: 6px 0 4px;
+  color: #eef2ff;
+  font-size: 0.91rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.telemetry-main-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.7fr)
+    minmax(280px, 0.8fr);
+  gap: 14px;
+}
+
+.navigation-map-card,
+.mission-live-card {
+  min-width: 0;
+  border: 1px solid rgba(141, 155, 190, 0.13);
+  border-radius: 15px;
+  background: rgba(9, 17, 33, 0.76);
+  padding: 15px;
+}
+
+.telemetry-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.telemetry-card-heading h3 {
+  font-size: 0.94rem;
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #8290ad;
+  font-size: 0.65rem;
+}
+
+.map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #8290ad;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.legend-dot.robot {
+  background: #7d6cff;
+}
+
+.legend-dot.route {
+  background: #4ad8ff;
+}
+
+.legend-dot.goal {
+  background: #ffca67;
+}
+
+.navigation-map {
+  overflow: hidden;
+  border: 1px solid rgba(122, 139, 177, 0.15);
+  border-radius: 12px;
+  background: #08101f;
+}
+
+.navigation-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 270px;
+}
+
+.telemetry-map-background {
+  fill: #08101f;
+}
+
+.telemetry-grid-line {
+  fill: none;
+  stroke: rgba(116, 137, 180, 0.09);
+  stroke-width: 1;
+}
+
+.navigation-route {
+  fill: none;
+  stroke: #48d3ff;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 8 7;
+  opacity: 0.85;
+}
+
+.location-marker {
+  stroke-width: 3;
+}
+
+.location-marker.home {
+  fill: #1ec99b;
+  stroke: rgba(30, 201, 155, 0.25);
+}
+
+.location-marker.room {
+  fill: #d28cff;
+  stroke: rgba(210, 140, 255, 0.25);
+}
+
+.location-label {
+  fill: #b4bed4;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.goal-ring {
+  fill: rgba(255, 194, 93, 0.12);
+  stroke: #ffc25d;
+  stroke-width: 2;
+}
+
+.goal-centre {
+  fill: #ffc25d;
+}
+
+.robot-heading {
+  stroke: #9b8cff;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.robot-marker {
+  fill: #7464ff;
+  stroke: #b7afff;
+  stroke-width: 3;
+}
+
+.robot-centre {
+  fill: #ffffff;
+}
+
+.map-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  color: #74829f;
+  font-size: 0.66rem;
+}
+
+.mission-state {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(127, 111, 255, 0.1);
+  color: #9e91ff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mission-state.completed {
+  background: rgba(43, 214, 160, 0.1);
+  color: #3fe0ac;
+}
+
+.mission-state.failed {
+  background: rgba(255, 91, 119, 0.1);
+  color: #ff6c84;
+}
+
+.mission-state.running,
+.mission-state.received {
+  background: rgba(91, 202, 255, 0.1);
+  color: #63d1ff;
+}
+
+.mission-progress-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: #7f8ca8;
+  font-size: 0.68rem;
+}
+
+.mission-progress-row div {
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-progress-row strong {
+  color: #f1f3ff;
+  font-size: 1.5rem;
+}
+
+.mission-progress-track {
+  height: 7px;
+  overflow: hidden;
+  margin: 9px 0 16px;
+  border-radius: 999px;
+  background: #18223a;
+}
+
+.mission-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      90deg,
+      #6857ff,
+      #a168ff,
+      #43d5ff
+    );
+  transition: width 280ms ease;
+}
+
+.mission-live-details {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.mission-live-details div {
+  min-width: 0;
+  border: 1px solid rgba(130, 147, 182, 0.1);
+  border-radius: 10px;
+  background: rgba(16, 26, 46, 0.55);
+  padding: 9px;
+}
+
+.mission-live-details dt {
+  color: #687793;
+  font-size: 0.61rem;
+  text-transform: uppercase;
+}
+
+.mission-live-details dd {
+  overflow: hidden;
+  margin: 4px 0 0;
+  color: #dce3f5;
+  font-size: 0.73rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mission-live-details .mission-id {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  font-size: 0.61rem;
+}
+
+.mission-description,
+.mission-error {
+  margin-top: 10px;
+  border-radius: 9px;
+  padding: 10px;
+  font-size: 0.69rem;
+  line-height: 1.5;
+}
+
+.mission-description {
+  background: rgba(113, 100, 255, 0.08);
+  color: #aeb8d0;
+}
+
+.mission-error {
+  border: 1px solid rgba(255, 94, 120, 0.22);
+  background: rgba(255, 94, 120, 0.08);
+  color: #ff889c;
+}
+
+@media (max-width: 1100px) {
+  .telemetry-stat-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .telemetry-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .live-telemetry-panel {
+    padding: 14px;
+  }
+
+  .telemetry-header {
+    flex-direction: column;
+  }
+
+  .telemetry-status-group {
+    justify-content: flex-start;
+  }
+
+  .telemetry-stat-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .mission-live-details {
+    grid-template-columns: 1fr;
+  }
+
+  .map-legend {
+    display: none;
+  }
+}

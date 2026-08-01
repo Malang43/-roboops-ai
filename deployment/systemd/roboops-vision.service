@@ -1,0 +1,22 @@
+[Unit]
+Description=RoboOps Vision and Camera Service
+Requires=roboops-simulation.service
+After=roboops-simulation.service
+PartOf=roboops.target
+
+[Service]
+Type=simple
+User=titans
+Group=titans
+WorkingDirectory=/srv/roboops-ai/backend
+Environment=HOME=/home/titans
+Environment=PYTHONUNBUFFERED=1
+Environment=ROS_DOMAIN_ID=0
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /srv/roboops-ai/ros2_ws/install/setup.bash && exec /srv/roboops-ai/backend/.venv/bin/python -m uvicorn vision_service:app --host 127.0.0.1 --port 8002'
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

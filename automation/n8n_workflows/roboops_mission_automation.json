@@ -1,0 +1,147 @@
+{
+  "name": "RoboOps Mission Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "roboops-mission-event",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "2d8f207d-84b9-42ee-909e-100000000001",
+      "name": "Mission Event Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -640,
+        0
+      ],
+      "webhookId": "roboops-mission-event"
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $json.body ?? $json;\n\nconst status = String(\n  incoming.status ?? \"unknown\"\n).trim().toLowerCase();\n\nconst missionId = String(\n  incoming.mission_id ?? \"unknown\"\n);\n\nconst completed = status === \"completed\";\n\nconst detectedLabels = Array.isArray(\n  incoming.detected_labels\n)\n  ? incoming.detected_labels\n  : [];\n\nconst capturePath =\n  incoming.capture_path ?? null;\n\nconst errorMessage =\n  incoming.error ?? null;\n\nconst resultLabel = completed\n  ? \"SUCCESS\"\n  : \"FAILURE\";\n\nconst reportLines = [\n  \"RoboOps AI Mission Report\",\n  \"=========================\",\n  `Result: ${resultLabel}`,\n  `Mission ID: ${missionId}`,\n  `Plan ID: ${incoming.plan_id ?? \"N/A\"}`,\n  `Status: ${status}`,\n  `Action: ${incoming.action ?? \"N/A\"}`,\n  `Target: ${incoming.target ?? \"N/A\"}`,\n  `Progress: ${incoming.progress_percent ?? 0}%`,\n  `Current step: ${incoming.current_step ?? \"N/A\"}`,\n  `Total steps: ${incoming.total_steps ?? 0}`,\n  `Detection count: ${incoming.detection_count ?? 0}`,\n  `Detected labels: ${\n    detectedLabels.length\n      ? detectedLabels.join(\", \")\n      : \"None\"\n  }`,\n  `Capture: ${capturePath ?? \"None\"}`,\n  `Error: ${errorMessage ?? \"None\"}`,\n  `Robot event time: ${incoming.event_at ?? \"N/A\"}`,\n  `Automation time: ${new Date().toISOString()}`,\n];\n\nreturn [\n  {\n    json: {\n      ...incoming,\n      status,\n      mission_id: missionId,\n      result: resultLabel,\n      completed,\n      report_subject:\n        `RoboOps mission ${status}: ${missionId}`,\n      report_text: reportLines.join(\"\\n\"),\n      automation_received_at:\n        new Date().toISOString(),\n    },\n  },\n];"
+      },
+      "id": "2d8f207d-84b9-42ee-909e-100000000002",
+      "name": "Normalize Mission Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2d8f207d-84b9-42ee-909e-100000000003",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2d8f207d-84b9-42ee-909e-100000000004",
+      "name": "Mission Completed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -150,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item) => {\n  return {\n    json: {\n      acknowledged: true,\n      automation_branch: \"completed\",\n      result: \"SUCCESS\",\n      mission_id: item.json.mission_id,\n      status: item.json.status,\n      report_subject:\n        item.json.report_subject,\n      report_text:\n        item.json.report_text,\n      capture_path:\n        item.json.capture_path ?? null,\n      processed_at:\n        new Date().toISOString(),\n    },\n  };\n});"
+      },
+      "id": "2d8f207d-84b9-42ee-909e-100000000005",
+      "name": "Build Success Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        120,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item) => {\n  return {\n    json: {\n      acknowledged: true,\n      automation_branch: \"failed\",\n      result: \"FAILURE\",\n      mission_id: item.json.mission_id,\n      status: item.json.status,\n      error:\n        item.json.error ??\n        \"Mission failed without an error message\",\n      report_subject:\n        item.json.report_subject,\n      report_text:\n        item.json.report_text,\n      processed_at:\n        new Date().toISOString(),\n    },\n  };\n});"
+      },
+      "id": "2d8f207d-84b9-42ee-909e-100000000006",
+      "name": "Build Failure Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        120,
+        120
+      ]
+    }
+  ],
+  "connections": {
+    "Mission Event Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Mission Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Mission Event": {
+      "main": [
+        [
+          {
+            "node": "Mission Completed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mission Completed?": {
+      "main": [
+        [
+          {
+            "node": "Build Success Report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Failure Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "tags": [],
+  "id": "RoboOpsMission01",
+  "versionId": "90b85b21-a24a-4066-860c-5748b15710b4",
+  "isArchived": false,
+  "staticData": null,
+  "meta": null
+}

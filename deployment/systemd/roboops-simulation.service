@@ -1,0 +1,24 @@
+[Unit]
+Description=RoboOps Gazebo and Nav2 Simulation
+Requires=roboops-infrastructure.service
+After=roboops-infrastructure.service network-online.target
+Wants=network-online.target
+PartOf=roboops.target
+
+[Service]
+Type=simple
+User=titans
+Group=titans
+WorkingDirectory=/srv/roboops-ai
+Environment=HOME=/home/titans
+Environment=PYTHONUNBUFFERED=1
+Environment=ROS_DOMAIN_ID=0
+ExecStart=/srv/roboops-ai/scripts/start_nav2_sim.sh
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+KillMode=mixed
+TimeoutStopSec=45
+
+[Install]
+WantedBy=multi-user.target
